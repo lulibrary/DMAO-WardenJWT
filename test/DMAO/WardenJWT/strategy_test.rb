@@ -36,7 +36,7 @@ class DMAO::WardenJWT::StrategyTest < MiniTest::Test
     }
 
     @valid_jwt = JWT.encode @payload, ENV['JWT_SECRET'], 'HS256'
-    @request.stubs(:get_header).returns("Bearer #{@valid_jwt}")
+    @request.stubs(:env).returns({"HTTP_AUTHORIZATION" => "Bearer #{@valid_jwt}"})
     @strategy.stubs(:request).returns(@request)
 
   end
@@ -70,7 +70,7 @@ class DMAO::WardenJWT::StrategyTest < MiniTest::Test
   def test_strategy_is_not_valid_when_jwt_specified_in_header_is_not_prefixed_by_bearer
 
     @request.stubs(:get_header).returns(@valid_jwt)
-    @strategy.stubs(:request).returns(@request)
+    @request.stubs(:env).returns({"HTTP_AUTHORIZATION" => @valid_jwt})
     @strategy.stubs(:params).returns({})
 
     refute @strategy.valid?
@@ -83,7 +83,7 @@ class DMAO::WardenJWT::StrategyTest < MiniTest::Test
 
   def test_jwt_returns_nil_if_jwt_is_not_specified
 
-    @request.stubs(:get_header).returns('')
+    @request.stubs(:env).returns({"HTTP_AUTHORIZATION" => ''})
     @strategy.stubs(:request).returns(@request)
     @strategy.stubs(:params).returns({})
 

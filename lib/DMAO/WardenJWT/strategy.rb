@@ -23,7 +23,7 @@ module DMAO
 
       def bearer_token
         pattern = /^Bearer /
-        header  = request.get_header('HTTP_AUTHORIZATION') # <= env
+        header  = request.env['HTTP_AUTHORIZATION'] # <= env
         header.gsub(pattern, '') if header && header.match(pattern)
       end
 
