@@ -1,7 +1,5 @@
 require "DMAO/WardenJWT/version"
 
-module DMAO
-  module WardenJWT
-    # Your code goes here...
-  end
-end
+require 'DMAO/WardenJWT/strategy'
+
+Warden::Strategies.add(:dmao_jwt, DMAO::WardenJWT::Strategy)
