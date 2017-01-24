@@ -29,8 +29,8 @@ module DMAO
 
       def jwt
 
-        if params[:jwt]
-          return  params[:jwt]
+        if params["jwt"]
+          return  params["jwt"]
         end
 
         if !bearer_token.nil? && !bearer_token.empty?
