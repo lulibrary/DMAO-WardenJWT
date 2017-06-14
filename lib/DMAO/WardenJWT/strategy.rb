@@ -66,22 +66,22 @@ module DMAO
 
         begin
           decoded_token = JWT.decode jwt, jwt_secret, true, { :verify_iat => verify_iat, :iss => jwt_issuer, :verify_iss => verify_iss, :aud => jwt_audience, :verify_aud => verify_aud, :algorithm => 'HS256'}
-        rescue JWT::ExpiredSignature
+        rescue ::JWT::ExpiredSignature
           logger.info('JWT - Expired Signature')
           return nil
-        rescue JWT::InvalidIssuerError
+        rescue ::JWT::InvalidIssuerError
           logger.info('JWT - Invalid Issuer')
           return nil
-        rescue JWT::InvalidAudError
+        rescue ::JWT::InvalidAudError
           logger.info('JWT - Invalid Audience')
           return nil
-        rescue JWT::InvalidIatError
+        rescue ::JWT::InvalidIatError
           logger.info('JWT - Invalid Issued At Timestamp')
           return nil
-        rescue JWT::VerificationError
+        rescue ::JWT::VerificationError
           logger.info('JWT - Signature Verification Failed')
           return nil
-        rescue JWT::DecodeError
+        rescue ::JWT::DecodeError
           logger.info('JWT - Error decoding JWT')
           return nil
         end
