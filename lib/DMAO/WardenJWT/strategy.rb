@@ -65,7 +65,7 @@ module DMAO
         jwt_audience = ENV['JWT_AUDIENCE']
 
         begin
-          decoded_token = JWT.decode jwt, jwt_secret, true, { :verify_iat => verify_iat, :iss => jwt_issuer, :verify_iss => verify_iss, :aud => jwt_audience, :verify_aud => verify_aud, :algorithm => 'HS256'}
+          decoded_token = ::JWT.decode jwt, jwt_secret, true, { :verify_iat => verify_iat, :iss => jwt_issuer, :verify_iss => verify_iss, :aud => jwt_audience, :verify_aud => verify_aud, :algorithm => 'HS256'}
         rescue ::JWT::ExpiredSignature
           logger.info('JWT - Expired Signature')
           return nil
